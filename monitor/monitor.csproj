@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="ExcelDataReader" Version="3.4.2"/>
+    <PackageReference Include="runtime.osx.10.10-x64.CoreCompat.System.Drawing" Version="1.0.0"/>
+    <PackageReference Include="Selenium.WebDriver" Version="3.141.0"/>
+    <PackageReference Include="log4net" Version="2.0.8"/>
+    <PackageReference Include="Eyes.Selenium" Version="2.16.0"/>
+    <PackageReference Include="ExcelDataReader.DataSet" Version="3.4.2"/>
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="4.5.0"/>
+    <PackageReference Include="YamlDotNet" Version="5.3.0"/>
+    <PackageReference Include="Snmp.Core" Version="1.0.1"/>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,24 @@
+providers:
+  validators:
+    applitoolsValidator: Monitor.Providers.ApplitoolsValidator
+    urlRedirectionValidator: Monitor.Providers.UrlRedirectionValidator
+  notifyer:
+    log4netNotifyer: Monitor.Providers.Log4netNotifyer
+  urlProvider:
+    ExcelFileUrlProvider: Monitor.Providers.ExcelFileUrlProvider
+components-params:
+  engine:
+    threads: 3
+    browser: chrome
+    gridAddress: 
+    headless: true
+  applitoolsValidator:
+    serverUrl:
+    apiKey:
+    appName:
+    batchname: Configuredbatch
+    viewportsize:
+      width: 1000
+      height: 650
+  ExcelFileUrlProvider:
+    datafile: SiteList.xlsx
