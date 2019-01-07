@@ -2,10 +2,11 @@ providers:
   validators:
     applitoolsValidator: Monitor.Providers.ApplitoolsValidator
     urlRedirectionValidator: Monitor.Providers.UrlRedirectionValidator
+    ttlValidator: Monitor.Providers.ttlValidator
   notifyer:
     log4netNotifyer: Monitor.Providers.Log4netNotifyer
-  urlProvider:
-    ExcelFileUrlProvider: Monitor.Providers.ExcelFileUrlProvider
+  siteDataProvider:
+    excelFileSiteDataProvider: Monitor.Providers.excelFileSiteDataProvider
 components-params:
   engine:
     threads: 3
@@ -20,5 +21,6 @@ components-params:
     viewportsize:
       width: 1000
       height: 650
-  ExcelFileUrlProvider:
+  excelFileSiteDataProvider:
     datafile: SiteList.xlsx
+    addColumns: ttl

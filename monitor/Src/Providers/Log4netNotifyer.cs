@@ -13,7 +13,7 @@ namespace Monitor.Providers
 
         private static ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        public Log4netNotifyer(Dictionary<string, object> args) { } //Dummy for easy reflection loading
+        public Log4netNotifyer() { }
 
         public void notifyMonitoredEvent(string message)
         {

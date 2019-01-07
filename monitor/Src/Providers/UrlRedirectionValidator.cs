@@ -8,7 +8,7 @@ namespace Monitor.Providers
 {
     public class UrlRedirectionValidator : Validator
     {
-        public UrlRedirectionValidator(Dictionary<string, object> eyesParams)
+        public UrlRedirectionValidator()
         {
 
         }

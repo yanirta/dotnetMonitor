@@ -1,10 +1,10 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 
 namespace Monitor.Interfaces
 {
-    public interface IUrlProvider
+    public interface ISiteDataProvider
     {
         DataRow nextRow();
         string nextField(int columnNumber);

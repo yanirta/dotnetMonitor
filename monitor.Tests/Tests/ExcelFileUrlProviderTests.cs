@@ -7,7 +7,7 @@ public class ExcelFileUrlProviderTests
     [Fact]
     void testProviderProgressAndFinish()
     {
-        var provider = new ExcelFileUrlProvider(@"../../../TestData/SiteList.xlsx");
+        var provider = new excelFileSiteDataProvider(@"../../../TestData/SiteList.xlsx");
         string prev = null;
         string curr = provider.nextField(0);
         while (curr != null)

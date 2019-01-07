@@ -15,13 +15,13 @@ namespace Monitor
     {
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        private readonly IUrlProvider urlProvider;
+        private readonly ISiteDataProvider urlProvider;
         private List<Thread> threads;
         private List<IValidator> validators = new List<IValidator>();
         private string browser = "chrome";
         private string gridAddress;
         private bool headless = false;
-        public Engine(IUrlProvider urlProvider, int threadCount)
+        public Engine(ISiteDataProvider urlProvider, int threadCount)
         {
             this.urlProvider = urlProvider;
             //TODO threads cap and validation
@@ -32,7 +32,7 @@ namespace Monitor
                     { Name = $"Monitor thread #{i}" });
         }
 
-        public Engine(IUrlProvider urlProvider, Dictionary<string, object> args)
+        public Engine(ISiteDataProvider urlProvider, Dictionary<string, object> args)
         : this(urlProvider, int.Parse((string)args["threads"]))
         {
             browser = (string)args.GetValueOrDefault("browser", browser);
@@ -59,7 +59,7 @@ namespace Monitor
         {
             validators.Add(validator);
         }
-        
+
         public void run()
         {
             log.Debug("Starting Engine");
@@ -86,6 +86,7 @@ namespace Monitor
                     string url = (string)url2be;
                     log.Info($"Checking url {url}");
                     TimeSpan ttl = safeNavigate(driver, url);
+                    addMetrics("ttl", siteData, ttl);
                     validators.ForEach((v) => safeValidate(v, driver, siteData));
                     siteData = urlProvider.nextRow();
                     log.Debug("Check done");
@@ -95,6 +96,12 @@ namespace Monitor
             {
                 driver.Close();
             }
+        }
+
+        private void addMetrics(string colName, DataRow siteData, object metric)
+        {
+            if (siteData.Table.Columns.Contains(colName))
+                siteData[colName] = metric;
         }
 
         private IWebDriver createDriver()

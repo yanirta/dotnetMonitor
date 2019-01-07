@@ -15,14 +15,14 @@ namespace monitor.Tests
         [Fact]
         public void EngineTestConcurrency()
         {
-            var urlprovMock = new Mock<IUrlProvider>();
+            var dataProvMoack = new Mock<ISiteDataProvider>();
             var validatorMock = new Mock<IValidator>();
 
             Stack<string> urls = new Stack<string>(new[] {
                 "https://www.zotac.com/",
                 "https://www.nvidia.com/"
                 });
-            urlprovMock.Setup(prov => prov.nextField(0))
+            dataProvMoack.Setup(prov => prov.nextField(0))
             .Returns(() =>
             {
                 if (urls.Count == 0)
@@ -31,7 +31,7 @@ namespace monitor.Tests
                     return urls.Pop();
             });
 
-            var engine = new Engine(urlprovMock.Object, 2);
+            var engine = new Engine(dataProvMoack.Object, 2);
             engine.registerValidator(validatorMock.Object);
             engine.run();
         }
@@ -39,7 +39,7 @@ namespace monitor.Tests
         [Fact]
         public void EngineTestVisualValidation()
         {
-            var urlprovMock = new Mock<IUrlProvider>();
+            var dataProvMock = new Mock<ISiteDataProvider>();
             var visualValidator = new ApplitoolsValidator(
                 Environment.GetEnvironmentVariable("APPLITOOLS_API_KEY"),
                 "Test app",
@@ -50,7 +50,7 @@ namespace monitor.Tests
                 "https://www.zotac.com/",
                 "https://www.nvidia.com/"
                 });
-            urlprovMock.Setup(prov => prov.nextField(0))
+            dataProvMock.Setup(prov => prov.nextField(0))
             .Returns(() =>
             {
                 if (urls.Count == 0)
@@ -59,7 +59,7 @@ namespace monitor.Tests
                     return urls.Pop();
             });
 
-            var engine = new Engine(urlprovMock.Object, 2);
+            var engine = new Engine(dataProvMock.Object, 2);
             engine.registerValidator(visualValidator);
             engine.run();
         }
@@ -67,14 +67,14 @@ namespace monitor.Tests
         [Fact]
         public void EngineTestVisualValidationAndExcelProvider()
         {
-            var urlprov = new ExcelFileUrlProvider(@"../../../TestData/TestUrlList.xlsx");
+            var dataProv = new excelFileSiteDataProvider(@"../../../TestData/TestUrlList.xlsx");
             var visualValidator = new ApplitoolsValidator(
                 Environment.GetEnvironmentVariable("APPLITOOLS_API_KEY"),
                 "Test app",
                 "Test batch",
                 new Size(1000, 650));
 
-            var engine = new Engine(urlprov, 3);
+            var engine = new Engine(dataProv, 3);
             engine.registerValidator(visualValidator);
             engine.run();
         }

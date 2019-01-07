@@ -15,7 +15,7 @@ public class Log4netNotifyerTests : LogOutputTester
     void test()
     {
         this.output.WriteLine("This is output direct message");
-        INotifyer n = new Log4netNotifyer(null);
+        INotifyer n = new Log4netNotifyer();
         n.notifyMonitoredEvent("This is monitor notifyer message");
     }
 }

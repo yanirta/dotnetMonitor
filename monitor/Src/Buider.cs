@@ -5,6 +5,7 @@ using System.Reflection;
 using log4net;
 using Monitor;
 using Monitor.Interfaces;
+using Monitor.Providers;
 using YamlDotNet.RepresentationModel;
 
 public class Builder
@@ -24,10 +25,10 @@ public class Builder
 
     public Engine build()
     {
-        IUrlProvider urlProvider = getProvider<IUrlProvider>("urlProvider");
+        ISiteDataProvider siteDataProvider = getProvider<ISiteDataProvider>("siteDataProvider");
         List<IValidator> validators = getProviders<IValidator>("validators");
         INotifyer notifyer = getProvider<INotifyer>("notifyer");
-        Engine engine = new Engine(urlProvider, getComponetsParams("engine"));
+        Engine engine = new Engine(siteDataProvider, getComponetsParams("engine"));
         engine.registerValidators(validators);
         engine.registerNotifyer(notifyer);
         return engine;
@@ -86,10 +87,12 @@ public class Builder
         return retParams;
     }
 
-    private T loadAssembly<T>(string classname, params object[] args)
+    private T loadAssembly<T>(string classname, object args)
     {
         Assembly asm = this.GetType().Assembly;
         Type ty = asm.GetType(classname);
-        return (T)Activator.CreateInstance(ty, args);
+        return (args == null) ?
+         (T)Activator.CreateInstance(ty) :
+         (T)Activator.CreateInstance(ty, args);
     }
 }
